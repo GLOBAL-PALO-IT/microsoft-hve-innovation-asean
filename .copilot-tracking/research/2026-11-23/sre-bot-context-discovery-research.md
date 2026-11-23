@@ -109,7 +109,7 @@ What may still differ is a PALO IT managed-service wrapper, GitHub Issues as the
 
 ## Recommendation and Alternatives
 
-* Recommendation or decision state: Analysis mode, so no selection. Decision state: the MVP's diagnosis and recovery boundary is settled (D6, option A). Positioning against Azure SRE Agent (D7) remains open and needs PM input.
+* Recommendation or decision state: Analysis mode, so no selection. Decision state: the MVP's diagnosis and recovery boundary is settled (D6, option A), GitHub Issues replaces Jira (D4), the confidentiality marking is not a sharing constraint (D5), and the MVP is shown locally with positioning against Azure SRE Agent (D7) deferred beyond the MVP.
 * Rationale: The overlap (W1) changes what the product is and cannot be resolved from the approved evidence. The tool-list gap is closed by the user's answer.
 * What could change this result: SME confirmation of how the bot gets logs and applies fixes, customer demand evidence, or a comparison with Azure SRE Agent.
 
@@ -145,10 +145,10 @@ What may still differ is a PALO IT managed-service wrapper, GitHub Issues as the
 
 | Group | Decision or feedback item | Status | Owner | Rationale or input needed | Evidence | Impact of answer |
 |-------|---------------------------|--------|-------|---------------------------|----------|------------------|
-| D4 | Is Jira in scope? (the `/recover` part is settled by D6) | unresolved (carried over) | user (SME) | Speaker notes mention Jira; slides do not. See `sre-bot-lean-canvas-research.md`. | C3 | Offering scope |
-| D5 | Sharing permission for the confidential deck and summaries | unresolved (carried over) | user (owner) | Open item in the session context. | C1 | Where research may live |
+| D4 | Is Jira in scope? (the `/recover` part is settled by D6) | confirmed: replaced by GitHub Issues (user, 2026-11-23) | user (SME) | Speaker notes mention Jira; slides do not. The user decided GitHub Issues replaces Jira. | C3, user answer | Offering scope settled |
+| D5 | Sharing permission for the confidential deck and summaries | confirmed: user chose to ignore the confidentiality marking as a sharing constraint (2026-11-23) | user (owner) | Open item in the session context, now decided by the owner. | C1, user answer | Summaries may be used and shared; real incident, customer and tenant data still stay out of the repository |
 | D6 | How does the MVP read logs and apply recovery? | confirmed (option A) | user (SME) | User answered: diagnosis uses only what arrives in the alert or Teams message, and the engineer runs any recovery. | C3, user answer 2026-11-23 | Settles Q12. `/recover` in the MVP proposes only, and diagnosis depth depends on payload quality. |
-| D7 | Positioning against Azure SRE Agent | deferred | user (PM) | Needs customer and commercial evidence outside this scope. | W1, W2 | Advantage and revenue areas of the canvas |
+| D7 | Positioning against Azure SRE Agent | confirmed: MVP shown locally; positioning deferred beyond the MVP (user, 2026-11-23) | user (PM) | The user decided positioning is not needed for the MVP. What "locally" means for hosting is a new open question (BRD OQ-014, PRD OQ-016). | W1, W2, user answer | Advantage and revenue areas of the canvas wait for a later release |
 
 ### D6: How does the MVP diagnose and recover?
 
@@ -182,7 +182,7 @@ How does the bot get diagnostic data, and what can it do on recovery in the MVP?
 | Blockers | none |
 | Output mode and planning support | analysis; does not prepare planning |
 | Continuation owner | user |
-| Required gates or confirmations | D6 answered; D4 (Jira), D5, D7 pending; human review of the lean canvas |
+| Required gates or confirmations | D4, D5, D6 and D7 answered by the user (2026-11-23); human review of the lean canvas |
 | Next action | SME and PM review findings and answer open decisions, then continue with the next workshop track. |
 | Primary evidence file | .copilot-tracking/research/2026-11-23/sre-bot-context-discovery-research.md (session context output root; date is the current date and matches the session) |
 
@@ -278,7 +278,7 @@ How does the bot get diagnostic data, and what can it do on recovery in the MVP?
 #### Contradictions and Conflicts
 
 * Slide 3 says `/recover` applies or proposes a fix, while the tool list contains no recovery tool: resolved by the user (D6, option A): the MVP proposes and the engineer executes.
-* Carried over: Jira in speaker notes versus GitHub in slides (D4).
+* Carried over: Jira in speaker notes versus GitHub in slides: resolved by the user (D4), GitHub Issues replaces Jira.
 
 ### Artifact Self-Check
 

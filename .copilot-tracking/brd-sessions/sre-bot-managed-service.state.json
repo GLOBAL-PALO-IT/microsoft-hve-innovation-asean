@@ -34,14 +34,22 @@
   "answeredQuestions": {
     "D6-mvp-diagnosis-and-recovery-boundary": "A: diagnosis uses only what arrives in the alert or Teams message; the engineer runs any recovery"
   },
-  "openQuestions": ["OQ-001", "OQ-002", "OQ-003", "OQ-004", "OQ-005", "OQ-006", "OQ-007", "OQ-008", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013"],
-  "identifierCounts": { "BG": 3, "FR": 7, "AC": 7, "NFR": 2, "CON": 6, "BR": 5, "DD": 4, "PD": 2 },
+  "decisionsRecorded": {
+    "D4": "GitHub Issues replaces Jira (user, 2026-11-23)",
+    "D5": "Confidentiality marking is not a sharing constraint (user, 2026-11-23)",
+    "D6": "Option A: payload-only diagnosis, engineer runs recovery",
+    "D7": "MVP shown locally; positioning against Azure SRE Agent deferred beyond the MVP (user, 2026-11-23)"
+  },
+  "openQuestions": ["OQ-001", "OQ-002", "OQ-005", "OQ-006", "OQ-007", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013", "OQ-014"],
+  "resolvedQuestions": ["OQ-003", "OQ-004"],
+  "deferredQuestions": ["OQ-008", "OQ-013"],
+  "identifierCounts": { "BG": 3, "FR": 7, "AC": 7, "NFR": 2, "CON": 7, "BR": 5, "DD": 7, "PD": 2 },
   "traceability": { "frToAcPct": 100.0, "frToBgPct": 100.0 },
   "brdToPrdHandoff": null,
   "nextActions": [
     "Human review of the BRD draft and context summary",
     "Name sponsor, buyer and approver ownership to pass the Discover gate",
-    "Answer OQ-003, OQ-004 and OQ-008",
+    "Answer OQ-014 (what \"shown locally\" means for the MVP)",
     "Set baselines and targets for BG-001",
     "Dispatch the BRD Quality Reviewer at the Define gate"
   ],

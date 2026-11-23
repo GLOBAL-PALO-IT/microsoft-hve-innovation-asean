@@ -37,13 +37,21 @@
       "key-findings": "Customer, revenue, metrics and advantage Unknown"
     }
   ],
-  "openQuestions": ["OQ-001", "OQ-002", "OQ-003", "OQ-004", "OQ-005", "OQ-006", "OQ-007", "OQ-008", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013", "OQ-014", "OQ-015"],
-  "identifierCounts": { "GOAL": 3, "FR": 10, "AC": 13, "NFR": 6, "CON": 7, "DD": 5, "PD": 2, "FC": 7 },
+  "decisionsRecorded": {
+    "D4": "GitHub Issues replaces Jira (user, 2026-11-23)",
+    "D5": "Confidentiality marking is not a sharing constraint (user, 2026-11-23)",
+    "D6": "Option A: payload-only diagnosis, engineer runs recovery",
+    "D7": "MVP shown locally; positioning against Azure SRE Agent deferred beyond the MVP (user, 2026-11-23)"
+  },
+  "openQuestions": ["OQ-001", "OQ-002", "OQ-005", "OQ-006", "OQ-007", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013", "OQ-014", "OQ-015", "OQ-016"],
+  "resolvedQuestions": ["OQ-003", "OQ-004"],
+  "deferredQuestions": ["OQ-008", "OQ-013"],
+  "identifierCounts": { "GOAL": 3, "FR": 10, "AC": 13, "NFR": 6, "CON": 8, "DD": 8, "PD": 2, "FC": 7 },
   "traceability": { "frToAcPct": 100.0, "frToGoalPct": 100.0 },
   "nextActions": [
     "Human review of the PRD draft",
     "Decide PD-001 guardrails (NFR-003, NFR-004) and OQ-010",
-    "Resolve OQ-005 (log access wording) and OQ-011 (incident data handling)",
+    "Resolve OQ-005 (log access wording), OQ-011 (incident data handling) and OQ-016 (what \"shown locally\" means)",
     "Set baselines and targets for GOAL-001",
     "Review the BRD, then dispatch the PRD Quality Reviewer at Validate"
   ],

@@ -19,8 +19,13 @@
 > **Assumption** or **Unknown** for workshop validation.
 >
 > This file sits in `workshop-input/`, which the session context reserves for
-> synthetic or public material. Confirm the deck's classification and sharing
-> permission before using this canvas beyond the team.
+> synthetic or public material. The user decided on 2026-11-23 that the deck's
+> confidentiality marking is not a sharing constraint (D5). Real incident, customer
+> and tenant data still stay out of the repository.
+>
+> **Decisions (user, 2026-11-23):** D4 GitHub Issues replaces Jira. D6 in the MVP, diagnosis
+> uses only what arrives in the alert or Teams message and the engineer runs any recovery.
+> D7 the MVP is shown locally and positioning against Azure SRE Agent is deferred beyond the MVP.
 
 ## Lean Canvas
 
@@ -29,12 +34,12 @@
 | Problem | On-call engineers run every incident step by hand: respond to the alert, search logs and diagnose, then recover (C3 slide 3). The deck frames this as alert fatigue (C3 slide 3). Frequency, time lost, cost of downtime, and the cost of doing nothing are not stated. | Deck-stated (problem shape). Unknown (impact and cost of inaction) |
 | Target customer segments | **Users:** on-call or SRE engineers who request actions in Teams and approve the final fix (C3 slides 2, 3, 4). **Customer organization, industry, size, and buyer or decision-maker:** not stated. A managed-service buyer such as an IT operations or platform leader running Azure workloads is a plausible hypothesis only. | Deck-stated (user role). Unknown (customer, buyer). Assumption (buyer hypothesis) |
 | Value proposition | Faster, more consistent recovery with human oversight and an auditable system of record (C3 slide 2). "Faster" and "more consistent" have no baseline or target. | Deck-stated (claim). Unknown (magnitude) |
-| Core offering | MVP runs one alert-to-issue path on Azure. Triggers are Teams requests and Azure Monitor alerts. Azure Functions and Service Bus ingest events. A Foundry agent with Azure OpenAI classifies the event and calls five GitHub Issues operations. Slash commands `/detect`, `/analysis`, `/recover` run detection, root-cause analysis, and a proposed or applied fix. An engineer approves the final fix, and recovery without approval is a later phase (C3 slides 3, 5, 6). Every request and bot action is written to a GitHub Issue (C3 slides 2, 4). | Deck-stated |
+| Core offering | MVP runs one alert-to-issue path on Azure. Triggers are Teams requests and Azure Monitor alerts. Azure Functions and Service Bus ingest events. A Foundry agent with Azure OpenAI classifies the event and calls five GitHub Issues operations. Slash commands `/detect`, `/analysis`, `/recover` run detection, root-cause analysis from what arrives in the alert or Teams message, and a proposed fix that the engineer carries out (D6). An engineer approves the final fix, and recovery without approval is a later phase (C3 slides 3, 5, 6). Every request and bot action is written to a GitHub Issue (C3 slides 2, 4). | Deck-stated |
 | Channels | **Product interaction surface:** Microsoft Teams via Azure Bot Service (C3 slides 4, 5, 6). **Go-to-market, sales, and delivery channel** (direct managed service, partner-led, Microsoft Marketplace): not stated. The deck scopes the MVP "for the HVE workshop", so a commercial launch plan is not implied. | Deck-stated (interaction surface). Unknown (go-to-market) |
 | Revenue model | Not stated. The deck is titled "Managed Service" (C3 slide 1), which suggests service-based fees, but pricing, billable unit, contract term, and willingness to pay are unknown. | Unknown |
 | Cost structure | The architecture implies cost areas for Azure Bot Service, Azure Functions, Service Bus, Foundry Agent Service and Azure OpenAI consumption, Application Insights, Key Vault, and GitHub (C3 slides 5, 6). People costs (build, operate, on-call support, onboarding) and compliance review are likely but unstated. No amounts are given. | Assumption (cost areas from architecture). Unknown (amounts) |
 | Success metrics | The deck defines none. Candidates only: time from alert to issue created, time to root-cause analysis, time to recovery, share of incidents with a bot analysis, share of proposed fixes approved, engineer hours per incident, repeat-alert rate. Baselines and targets are unknown. | Assumption (candidates). Unknown (baselines, targets) |
-| Unique advantage | Deck-stated design choices: human approval stays in control, a GitHub Issue audit trail for every action, Teams as the working surface, and an Azure-native governed tool path (C3 slides 2, 4, 5). Whether any of this is unique or durable is unvalidated, and no competitor or alternative is analysed. Overlap with existing AIOps or Azure-native incident tooling has not been checked. | Deck-stated (design choices). Assumption (as an advantage). Unknown (durability) |
+| Unique advantage | Deck-stated design choices: human approval stays in control, a GitHub Issue audit trail for every action, Teams as the working surface, and an Azure-native governed tool path (C3 slides 2, 4, 5). Whether any of this is unique or durable is unvalidated, and no competitor or alternative is analysed. Overlap with existing AIOps or Azure-native incident tooling, including Azure SRE Agent, is documented but not compared. The user deferred positioning beyond the MVP, which is shown locally (D7). | Deck-stated (design choices). Assumption (as an advantage). Unknown (durability) |
 
 ## Evidence-backed facts (deck-stated, not independently verified)
 
@@ -43,10 +48,10 @@
 * Recovery without human approval, on-prem and SNMP alerts, scheduled jobs, AWS and GCP health events, file uploads, email and web intake, and non-Azure or local LLMs are later phases (C3 slides 5, 6).
 * Every Teams request and bot action is written back to a GitHub Issue as the system of record (C3 slides 2, 4).
 
-## Inconsistencies to resolve
+## Inconsistencies resolved
 
-* The deck's speaker notes refer to a Jira mockup, a Jira comment trigger, and a "five manual steps" as-is chain. The slides show Teams and GitHub Issues only, with three steps. The notes look carried over from an earlier version. This canvas follows the slide content. Confirm whether Jira is in or out of scope (C3 slides 3, 4, speaker notes).
-* Slide 3 says `/recover` "applies or proposes" the fix. Confirm what the MVP may change in production and what approval gate applies (C3 slides 3, 6).
+* The deck's speaker notes refer to a Jira mockup and a Jira comment trigger. The user decided on 2026-11-23 that GitHub Issues replaces Jira (D4), so the notes are superseded.
+* Slide 3 says `/recover` "applies or proposes" the fix. The user decided that in the MVP the engineer carries out any recovery (D6).
 
 ## Unknowns for follow-up
 
@@ -56,9 +61,10 @@
 4. Is this sold as a managed service, a Marketplace offer, or both, and what is the billable unit and price? (PM)
 5. Which success metrics, baselines, and targets will prove the MVP works? (SME, PM)
 6. Which alternatives exist today, including manual runbooks and current AIOps or Azure-native tooling, and where does this offer differ? (PM, requires research beyond the approved evidence)
-7. What recovery actions may the bot take with approval, and which are never allowed? (SME, security)
-8. Is Jira in scope, or is GitHub Issues the only system of record? (SME)
-9. Can the source deck and this summary be shared beyond the team? (Owner)
+7. What recovery actions may the engineer carry out on a proposal, and which are never allowed? (SME, security)
+8. Resolved (D4): GitHub Issues replaces Jira.
+9. Resolved (D5): the confidentiality marking is not a sharing constraint.
+10. What does "shown locally" mean for the MVP: local components, or Azure services demonstrated locally? (D7, SME)
 
 ## Workshop validation
 

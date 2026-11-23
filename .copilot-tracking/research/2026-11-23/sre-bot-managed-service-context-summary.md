@@ -77,10 +77,10 @@ Labels: **Fact** = stated by the source deck or a cited public source (not indep
 
 | ID | Item | Status | Owner |
 |---|---|---|---|
-| D4 | Is Jira in scope? (speaker notes mention it, slides do not) | Open | SME |
-| D5 | May the confidential deck and summaries be shared beyond the team? | Open | Owner |
+| D4 | Is Jira in scope? | Decision: replaced by GitHub Issues (user, 2026-11-23) | SME |
+| D5 | May the confidential deck and summaries be shared beyond the team? | Decision: user chose to ignore the confidentiality marking as a sharing constraint (2026-11-23) | Owner |
 | D6 | MVP diagnosis and recovery boundary | Decision (option A) | User |
-| D7 | Positioning against Azure SRE Agent | Open | PM |
+| D7 | Positioning against Azure SRE Agent | Decision: the MVP is shown locally; positioning deferred beyond the MVP (user, 2026-11-23). What "locally" means for hosting is open (BRD OQ-014). | PM |
 
 Further open questions: target segment and buyer, baselines and success targets, minimum alert and message content, failure history, repository visibility and redaction for issues, alert volumes against GitHub limits. These are carried into the BRD as OQ items.
 

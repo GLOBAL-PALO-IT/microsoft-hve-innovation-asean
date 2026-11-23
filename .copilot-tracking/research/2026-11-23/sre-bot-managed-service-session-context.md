@@ -53,7 +53,7 @@
 
 * Confirm the target customer segment and decision-maker for the managed service. Currently `Unknown`.
 * Confirm whether real or synthetic incident evidence (alerts, runbooks, SOPs) will be used, and where it will be stored.
-* Confirm classification and sharing permissions for the source deck before it is used beyond the team.
+* Confirm classification and sharing permissions for the source deck before it is used beyond the team. Resolved 2026-11-23: the owner decided the confidentiality marking is not a sharing constraint (D5).
 
 ## Next Step
 
