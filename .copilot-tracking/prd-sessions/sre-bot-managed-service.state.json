@@ -1,0 +1,63 @@
+{
+  "prdFile": ".copilot-tracking/prd-sessions/sre-bot-managed-service-prd.md",
+  "lastAccessed": "2026-11-23T12:05:00+08:00",
+  "currentPhase": "Build",
+  "status": "draft - awaiting human review",
+  "humanReview": { "required": true, "completed": false },
+  "disclaimerShownAt": "2026-11-23T11:57:00+08:00",
+  "phaseSkillsLoaded": ["prd-author#create"],
+  "gates": {
+    "build": "not-passed: open questions on guardrails, metrics and data handling",
+    "validate": "BLOCKED by PRD_QUALITY_REPORT_V1 (overall FAIL, 2026-11-23): GOAL-001 has no measurable KPI; no goal passes SMART",
+    "finalize": "not-started"
+  },
+  "sessionContext": ".copilot-tracking/research/2026-11-23/sre-bot-managed-service-session-context.md",
+  "contextSummary": ".copilot-tracking/research/2026-11-23/sre-bot-managed-service-context-summary.md",
+  "sourceBrd": ".copilot-tracking/brd-sessions/sre-bot-managed-service-brd.md",
+  "sourceBrdHandoff": null,
+  "sourceBrdNote": "BRD is an unreviewed draft; no BRD_TO_PRD_HANDOFF_V1 exists",
+  "questionsAsked": ["D6-mvp-diagnosis-and-recovery-boundary"],
+  "answeredQuestions": {
+    "D6-mvp-diagnosis-and-recovery-boundary": "A: diagnosis uses only what arrives in the alert or Teams message; the engineer runs any recovery"
+  },
+  "referencesProcessed": [
+    {
+      "file": ".copilot-tracking/brd-sessions/sre-bot-managed-service-brd.md",
+      "status": "analyzed",
+      "key-findings": "3 goals, 7 FRs, 5 BRs, 6 CONs, 13 open questions; draft, not approved"
+    },
+    {
+      "file": ".copilot-tracking/research/2026-11-23/sre-bot-context-discovery-research.md",
+      "status": "analyzed",
+      "key-findings": "Deck-stated concept and MVP scope; no metrics; payload-only diagnosis; Azure SRE Agent overlap; guardrail gaps"
+    },
+    {
+      "file": ".copilot-tracking/research/workshop-input/leancanvas.md",
+      "status": "analyzed",
+      "key-findings": "Customer, revenue, metrics and advantage Unknown"
+    }
+  ],
+  "openQuestions": ["OQ-001", "OQ-002", "OQ-003", "OQ-004", "OQ-005", "OQ-006", "OQ-007", "OQ-008", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013", "OQ-014", "OQ-015"],
+  "identifierCounts": { "GOAL": 3, "FR": 10, "AC": 13, "NFR": 6, "CON": 7, "DD": 5, "PD": 2, "FC": 7 },
+  "traceability": { "frToAcPct": 100.0, "frToGoalPct": 100.0 },
+  "nextActions": [
+    "Human review of the PRD draft",
+    "Decide PD-001 guardrails (NFR-003, NFR-004) and OQ-010",
+    "Resolve OQ-005 (log access wording) and OQ-011 (incident data handling)",
+    "Set baselines and targets for GOAL-001",
+    "Review the BRD, then dispatch the PRD Quality Reviewer at Validate"
+  ],
+  "qualityReview": {
+    "mode": "automated, read-only PRD Quality Reviewer",
+    "reviewedAt": "2026-11-23T13:10:00+08:00",
+    "reportId": "PRD-2026-Q4-001-quality-20260523T050340Z",
+    "reportPath": ".copilot-tracking/prd-sessions/sre-bot-managed-service-prd.quality-review.md",
+    "overallStatus": "FAIL",
+    "gateDecisions": { "validate_exit": "BLOCKED", "finalize_exit": "NOT_EVALUATED" },
+    "summaryCounts": { "RISK": 1, "CAUTION": 22, "COVERED": 7, "NOT_APPLICABLE": 1 },
+    "topFindings": ["req-qual-001 GOAL-001 KPI unmeasurable (OQ-002)", "req-qual-005 no privacy NFR despite incident content on records (OQ-011)"],
+    "note": "Automated review does not replace human review; humanReview.completed stays false"
+  },
+  "qualityChecks": ["facts-separated-from-assumptions", "no-invented-metrics", "fr-to-ac-coverage-100", "fr-to-goal-coverage-100"],
+  "userPreferences": { "detail-level": "concise", "save-location": ".copilot-tracking/prd-sessions/" }
+}

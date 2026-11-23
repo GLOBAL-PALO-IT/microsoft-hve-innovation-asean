@@ -1,0 +1,61 @@
+{
+  "brdFile": ".copilot-tracking/brd-sessions/sre-bot-managed-service-brd.md",
+  "lastAccessed": "2026-11-23T11:55:00+08:00",
+  "currentPhase": "Discover",
+  "status": "draft - awaiting human review",
+  "humanReview": { "required": true, "completed": false },
+  "disclaimerShownAt": "2026-11-23T11:53:00+08:00",
+  "phaseSkillsLoaded": ["brd-author#discover", "brd-author#define"],
+  "gates": {
+    "discover": "not-passed: sponsor, buyer, approver and sign-off ownership not explicit",
+    "define": "BLOCKED by BRD_QUALITY_REPORT_V1 (overall FAIL, 2026-11-23): BG-001 baseline, target and owner Unknown; guardrails only Proposed",
+    "govern": "not-started"
+  },
+  "sessionContext": ".copilot-tracking/research/2026-11-23/sre-bot-managed-service-session-context.md",
+  "contextSummary": ".copilot-tracking/research/2026-11-23/sre-bot-managed-service-context-summary.md",
+  "referencesProcessed": [
+    {
+      "file": ".copilot-tracking/research/2026-11-23/sre-bot-context-discovery-research.md",
+      "status": "analyzed",
+      "keyFindings": "Concept, rules and MVP scope are deck-stated; no baselines or customer facts; MVP diagnosis is payload-only and recovery is proposal-only (D6); Azure SRE Agent overlaps; guardrail gaps"
+    },
+    {
+      "file": ".copilot-tracking/research/2026-11-23/sre-bot-lean-canvas-research.md",
+      "status": "analyzed",
+      "keyFindings": "Customer, buyer, revenue, metrics and advantage are Unknown; Jira notes conflict with slides"
+    },
+    {
+      "file": ".copilot-tracking/research/workshop-input/leancanvas.md",
+      "status": "analyzed",
+      "keyFindings": "Draft lean canvas for human review"
+    }
+  ],
+  "questionsAsked": ["D6-mvp-diagnosis-and-recovery-boundary"],
+  "answeredQuestions": {
+    "D6-mvp-diagnosis-and-recovery-boundary": "A: diagnosis uses only what arrives in the alert or Teams message; the engineer runs any recovery"
+  },
+  "openQuestions": ["OQ-001", "OQ-002", "OQ-003", "OQ-004", "OQ-005", "OQ-006", "OQ-007", "OQ-008", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013"],
+  "identifierCounts": { "BG": 3, "FR": 7, "AC": 7, "NFR": 2, "CON": 6, "BR": 5, "DD": 4, "PD": 2 },
+  "traceability": { "frToAcPct": 100.0, "frToBgPct": 100.0 },
+  "brdToPrdHandoff": null,
+  "nextActions": [
+    "Human review of the BRD draft and context summary",
+    "Name sponsor, buyer and approver ownership to pass the Discover gate",
+    "Answer OQ-003, OQ-004 and OQ-008",
+    "Set baselines and targets for BG-001",
+    "Dispatch the BRD Quality Reviewer at the Define gate"
+  ],
+  "qualityReview": {
+    "mode": "automated, read-only BRD Quality Reviewer",
+    "reviewedAt": "2026-11-23T13:10:00+08:00",
+    "reportId": "BRD-2026-Q4-001-quality-20261123T050340Z",
+    "reportPath": ".copilot-tracking/brd-sessions/sre-bot-managed-service-brd.quality-review.md",
+    "overallStatus": "FAIL",
+    "gateDecisions": { "define_exit": "BLOCKED", "govern_exit": "NOT_EVALUATED" },
+    "summaryCounts": { "RISK": 1, "CAUTION": 16, "COVERED": 5, "NOT_APPLICABLE": 1 },
+    "topFindings": ["req-qual-001 BG-001 baseline, target, timeframe, owner Unknown (OQ-002)", "req-qual-006 guardrails only Proposed (PD-001)"],
+    "note": "Automated review does not replace human review; humanReview.completed stays false"
+  },
+  "qualityChecks": ["facts-separated-from-assumptions", "no-invented-metrics", "fr-to-ac-coverage-100", "fr-to-bg-coverage-100"],
+  "userPreferences": { "detail-level": "concise", "save-location": ".copilot-tracking/brd-sessions/" }
+}
