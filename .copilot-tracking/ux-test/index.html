@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Teams (Synthetic Prototype) — #on-call-incidents | SRE Bot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-stage">Skip to Teams conversation</a>
+
+  <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <div id="live-alert" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Top Teams Title Bar -->
+  <header class="teams-titlebar">
+    <div class="titlebar-left">
+      <div class="teams-logo" aria-hidden="true">
+        <span class="teams-logo-t">T</span>
+      </div>
+      <span class="teams-app-name">Microsoft Teams</span>
+      <span class="proto-pill" title="Synthetic UX prototype only — mock data, undecided tech/policy choices not finalized">
+        [SYNTHETIC UX PROTOTYPE]
+      </span>
+    </div>
+
+    <div class="titlebar-search">
+      <label for="global-search" class="sr-only">Filter messages and incidents</label>
+      <input id="global-search" type="search" class="teams-search-input" placeholder="Search incidents, Issue #42, or payloads...">
+    </div>
+
+    <div class="titlebar-right">
+      <button type="button" id="toggle-simulator-btn" class="titlebar-btn is-highlighted" aria-expanded="true" aria-controls="simulator-drawer">
+        Demo Simulator
+      </button>
+      <button type="button" id="emergency-stop-btn" class="titlebar-btn titlebar-btn-danger" aria-pressed="false" title="Mock Emergency Stop (NFR-004)">
+        Pause Bot
+      </button>
+      <div class="user-avatar-sm" title="alex.tan (On-Call SRE)" aria-label="Signed in as alex.tan (Synthetic)">AT</div>
+    </div>
+  </header>
+
+  <!-- Prototype Scope Strip (compact, always visible) -->
+  <div class="scope-strip" role="region" aria-label="Prototype scope notice">
+    <span><strong>Workshop UX validation only:</strong> Synthetic data &amp; mock responses. Does not finalize undecided tech/policy choices or validate production auth, data, AI, security, or Marketplace guarantees.</span>
+  </div>
+
+  <!-- Emergency Stop Banner -->
+  <div id="emergency-banner" class="teams-banner teams-banner-danger" role="alert" hidden>
+    <span><strong>[BOT PAUSED — EMERGENCY STOP ACTIVE]</strong> Mock SRE Bot analysis and proposals are paused (NFR-004 UX mockup).</span>
+    <button type="button" id="resume-bot-btn" class="fluent-btn fluent-btn-secondary fluent-btn-sm">Resume Bot</button>
+  </div>
+
+  <!-- Main Teams Shell -->
+  <div class="teams-shell">
+    <!-- Far-Left Teams App Rail -->
+    <nav class="app-rail" aria-label="Teams navigation rail">
+      <button type="button" class="rail-item" data-rail="activity" aria-label="Activity (synthetic)">
+        <span class="rail-icon" aria-hidden="true">&#128276;</span>
+        <span class="rail-label">Activity</span>
+      </button>
+      <button type="button" class="rail-item" data-rail="chat" aria-label="Chat with SRE Bot">
+        <span class="rail-icon" aria-hidden="true">&#128172;</span>
+        <span class="rail-label">Chat</span>
+      </button>
+      <button type="button" class="rail-item is-active" data-rail="teams" aria-current="page" aria-label="Teams channels">
+        <span class="rail-icon" aria-hidden="true">&#128101;</span>
+        <span class="rail-label">Teams</span>
+      </button>
+      <button type="button" class="rail-item" data-rail="srebot" aria-label="SRE Bot app">
+        <span class="rail-icon" aria-hidden="true">&#129302;</span>
+        <span class="rail-label">SRE Bot</span>
+      </button>
+    </nav>
+
+    <!-- Second Column: Teams & Channels Sidebar -->
+    <aside class="channel-sidebar" aria-label="Teams and channels">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">Teams</h1>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="team-group-header">
+          <span class="team-badge" aria-hidden="true">CO</span>
+          <span class="team-name">Cloud Operations (SRE)</span>
+        </div>
+        <ul class="channel-list">
+          <li>
+            <button type="button" class="channel-item is-active" data-channel="on-call-incidents" aria-current="page">
+              <span class="channel-hash" aria-hidden="true">#</span>
+              <span class="channel-name">on-call-incidents</span>
+              <span id="channel-unread-badge" class="unread-pill" aria-label="Active incidents">1</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="channel-item" data-channel="sre-bot-dm">
+              <span class="bot-dot" aria-hidden="true">SB</span>
+              <span class="channel-name">SRE Bot (Direct)</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-subhead">Active Incident Threads</div>
+        <ul id="sidebar-incident-list" class="incident-mini-list"></ul>
+      </div>
+    </aside>
+
+    <!-- Center: Teams Channel Stage -->
+    <main id="main-stage" class="teams-stage" tabindex="-1">
+      <!-- Channel Header & Teams Channel Tabs -->
+      <div class="channel-header">
+        <div class="channel-header-left">
+          <div class="channel-avatar" aria-hidden="true">CO</div>
+          <div>
+            <h2 id="active-channel-title" class="channel-title"># on-call-incidents</h2>
+          </div>
+          <nav class="channel-tabs" aria-label="Channel tabs" role="tablist">
+            <button type="button" role="tab" id="tab-posts" class="channel-tab is-active" aria-selected="true" aria-controls="panel-posts" data-tab="posts">
+              Posts
+            </button>
+            <button type="button" role="tab" id="tab-audit" class="channel-tab" aria-selected="false" aria-controls="panel-audit" data-tab="audit">
+              GitHub Issues
+            </button>
+            <button type="button" role="tab" id="tab-criteria" class="channel-tab" aria-selected="false" aria-controls="panel-criteria" data-tab="criteria">
+              UX Criteria
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <!-- TAB 1: TEAMS POSTS & THREADED ADAPTIVE CARDS -->
+      <section id="panel-posts" class="stage-panel stage-posts-layout" role="tabpanel" aria-labelledby="tab-posts">
+        <div id="integration-error-banner" class="teams-banner teams-banner-danger" role="alert" hidden></div>
+
+        <!-- Scrollable Teams Feed -->
+        <div id="teams-feed" class="teams-feed" aria-label="Channel conversation feed"></div>
+
+        <!-- Teams Bottom Compose Box -->
+        <div class="compose-dock">
+          <form id="teams-compose-form" class="compose-box" novalidate>
+            <div id="compose-error" class="compose-error" role="alert" hidden></div>
+            <div class="compose-top-row">
+              <label for="compose-key" class="compose-inline-label">Incident Key:</label>
+              <input id="compose-key" type="text" class="compose-key-input" placeholder="e.g., prod-app-vm-01 / disk-full" required>
+              <span class="compose-hint-pill">Matched via mock search_issues (FR-011)</span>
+            </div>
+            <label for="compose-message" class="sr-only">Message to @SRE Bot</label>
+            <textarea id="compose-message" class="compose-textarea" rows="2" placeholder="Message @SRE Bot in #on-call-incidents (paste alert details — no live log fetch in MVP)..." required></textarea>
+            <div class="compose-toolbar">
+              <div class="compose-toolbar-left">
+                <span class="compose-actor-tag">Posting as: <strong>alex.tan (On-Call SRE)</strong></span>
+                <button type="button" id="compose-clear-btn" class="fluent-btn fluent-btn-ghost fluent-btn-sm">Clear</button>
+              </div>
+              <div class="compose-toolbar-right">
+                <button type="submit" class="fluent-btn fluent-btn-primary fluent-btn-sm">
+                  Send to @SRE Bot &#10148;
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 2: GITHUB ISSUE AUDIT TRAIL (Embedded Teams Tab) -->
+      <section id="panel-audit" class="stage-panel stage-scroll" role="tabpanel" aria-labelledby="tab-audit" hidden>
+        <div class="embedded-page">
+          <div class="embedded-header">
+            <div>
+              <h3 id="audit-issue-title">GitHub Issue #42</h3>
+              <p id="audit-issue-meta" class="muted-text"></p>
+            </div>
+            <div class="inline-controls">
+              <label for="audit-incident-select" class="sr-only">Select GitHub Issue</label>
+              <select id="audit-incident-select" class="fluent-select"></select>
+              <div id="audit-issue-badges" class="badge-row"></div>
+            </div>
+          </div>
+
+          <div class="fluent-callout fluent-callout-warn">
+            <strong>Unresolved Governance (D4 / OQ-011):</strong>
+            Repository visibility, redaction, retention, and approver authority remain undecided. Fixed 5-operation tool boundary:
+            <code>search_issues</code>, <code>create_issue</code>, <code>get_issue</code>, <code>add_comment</code>, <code>update_issue</code> (<code>CON-007</code>).
+          </div>
+
+          <div class="table-wrap">
+            <table class="fluent-table">
+              <thead>
+                <tr>
+                  <th scope="col">Timestamp</th>
+                  <th scope="col">Operation (CON-007)</th>
+                  <th scope="col">Actor (NFR-002)</th>
+                  <th scope="col">Action &amp; Outcome</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: ACCEPTANCE CRITERIA & BOUNDARIES -->
+      <section id="panel-criteria" class="stage-panel stage-scroll" role="tabpanel" aria-labelledby="tab-criteria" hidden>
+        <div class="embedded-page">
+          <div class="embedded-header">
+            <div>
+              <h3>Prototype UX Acceptance Criteria vs. Deferred Integration Criteria</h3>
+              <p class="muted-text">Use during stakeholder/SME walkthroughs to separate UX flow validation from production integration gates.</p>
+            </div>
+          </div>
+
+          <div class="criteria-grid">
+            <article class="fluent-card">
+              <div class="fluent-card-header">
+                <h4>In-Scope: Prototype UX Criteria</h4>
+                <span class="status-badge badge-success">[VALIDATE HERE]</span>
+              </div>
+              <p class="muted-text">Browser session checklist only (does not modify repository human-review checkboxes).</p>
+              <ul id="ux-criteria-list" class="criteria-list"></ul>
+            </article>
+
+            <article class="fluent-card fluent-card-muted">
+              <div class="fluent-card-header">
+                <h4>Out-of-Scope: Deferred Production &amp; Integration</h4>
+                <span class="status-badge badge-danger">[DO NOT VALIDATE HERE]</span>
+              </div>
+              <ul class="bullet-list">
+                <li><strong>Production Auth &amp; Approver Authority:</strong> Entra ID / RBAC, who may approve, and timeouts (<code>OQ-010</code>, <code>OQ-012</code>, <code>NFR-004</code>).</li>
+                <li><strong>Production Data &amp; Redaction:</strong> Real customer/tenant data, classification, redaction, and retention (<code>NFR-007</code>, <code>OQ-011</code>).</li>
+                <li><strong>Live AI &amp; Performance:</strong> Azure OpenAI in Microsoft Foundry inference, latency SLAs, accuracy baselines (<code>CON-003</code>, <code>NFR-008</code>, <code>OQ-002</code>).</li>
+                <li><strong>Production Security &amp; Reliability:</strong> Key Vault secrets, live GitHub 80/min rate limits, adversarial prompt-injection defenses (<code>NFR-001</code>, <code>NFR-003</code>, <code>NFR-009</code>).</li>
+                <li><strong>Marketplace &amp; Agent Store Publishing:</strong> Billing, activation, Partner Center submission, Azure SRE Agent positioning (<code>D3</code>, <code>D7</code>, <code>P03-T02</code>).</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Right-Side Collapsible Workshop Demo Simulator Drawer -->
+    <aside id="simulator-drawer" class="simulator-drawer" aria-label="Workshop demo simulator">
+      <div class="drawer-header">
+        <h3>Workshop Simulator</h3>
+        <button type="button" id="close-simulator-btn" class="icon-close-btn" aria-label="Close simulator">&times;</button>
+      </div>
+
+      <div class="drawer-body">
+        <section class="sim-block">
+          <h4>1. One-Click Scenarios</h4>
+          <p class="sim-help">Fire synthetic events directly into Teams to walk through MVP flows.</p>
+          <div class="sim-stack">
+            <button type="button" class="fluent-btn fluent-btn-secondary fluent-btn-sm sim-btn" data-scenario="recurring-disk">
+              A. Recurring Disk-Full (Teams · J2)
+            </button>
+            <button type="button" class="fluent-btn fluent-btn-secondary fluent-btn-sm sim-btn" data-scenario="new-cpu-alert">
+              B. New High-CPU Alert (Azure Monitor · J1)
+            </button>
+            <button type="button" class="fluent-btn fluent-btn-secondary fluent-btn-sm sim-btn" data-scenario="insufficient-info">
+              C. Insufficient Info (FR-014)
+            </button>
+            <button type="button" class="fluent-btn fluent-btn-secondary fluent-btn-sm sim-btn" data-scenario="prompt-injection">
+              D. Untrusted Payload (NFR-003)
+            </button>
+          </div>
+        </section>
+
+        <section class="sim-block">
+          <h4>2. Custom Azure Monitor Alert</h4>
+          <form id="monitor-sim-form" novalidate>
+            <div id="monitor-error" class="compose-error" role="alert" hidden></div>
+            <label for="sim-rule" class="sim-label">Alert Rule Name *</label>
+            <input id="sim-rule" type="text" class="fluent-input" placeholder="e.g., DiskSpaceCritical-vm01" required>
+            <label for="sim-severity" class="sim-label">Severity</label>
+            <select id="sim-severity" class="fluent-select fluent-select-full">
+              <option value="Sev1">Sev1 — Error</option>
+              <option value="Sev2" selected>Sev2 — Warning</option>
+              <option value="Sev3">Sev3 — Info</option>
+            </select>
+            <label for="sim-payload" class="sim-label">Alert Payload *</label>
+            <textarea id="sim-payload" class="fluent-textarea" rows="3" placeholder="Metric, threshold, resource..." required></textarea>
+            <button type="submit" class="fluent-btn fluent-btn-primary fluent-btn-sm sim-btn">
+              Fire Azure Monitor Alert
+            </button>
+          </form>
+        </section>
+
+        <section class="sim-block">
+          <h4>3. Unsupported Trigger (FR-012)</h4>
+          <label for="unsupported-channel" class="sr-only">Unsupported channel</label>
+          <select id="unsupported-channel" class="fluent-select fluent-select-full">
+            <option value="Email alert">Email alert (deferred)</option>
+            <option value="AWS Health event">AWS Health event (deferred)</option>
+            <option value="Screenshot / file upload">Screenshot / file upload (deferred)</option>
+            <option value="On-prem SNMP trap">On-prem SNMP trap (deferred)</option>
+          </select>
+          <button type="button" id="test-unsupported-btn" class="fluent-btn fluent-btn-secondary fluent-btn-sm sim-btn">
+            Test Rejected Trigger
+          </button>
+          <div id="unsupported-result" class="sim-feedback" role="status" hidden></div>
+        </section>
+
+        <section class="sim-block">
+          <h4>4. Mock Integration State (NFR-009)</h4>
+          <label for="simulate-error-select" class="sr-only">Mock integration state</label>
+          <select id="simulate-error-select" class="fluent-select fluent-select-full">
+            <option value="healthy">Healthy (All mock OK)</option>
+            <option value="github-429">Degraded: GitHub API 429</option>
+            <option value="teams-503">Degraded: Teams 503</option>
+          </select>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <!-- APPROVE CONFIRMATION MODAL (Fluent Dialog) -->
+  <div id="approve-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="approve-modal-title" hidden>
+    <div class="modal-card">
+      <h3 id="approve-modal-title">Approve Recovery Proposal</h3>
+      <p>Confirm approval for <strong id="approve-modal-incident"></strong>.</p>
+      <div class="fluent-callout fluent-callout-info">
+        <strong>Human-Control Boundary (DD-001 / AC-007):</strong>
+        The SRE Bot does <strong>not</strong> execute recovery commands. Approving records your decision on the GitHub Issue and confirms you will run the manual steps yourself.
+      </div>
+      <label for="approve-note" class="sim-label">Optional Approval Note (recorded on GitHub Issue)</label>
+      <input id="approve-note" type="text" class="fluent-input" placeholder="e.g., Verified /var/log mount before cleanup">
+      <div class="modal-actions">
+        <button type="button" id="cancel-approve-btn" class="fluent-btn fluent-btn-secondary">Cancel</button>
+        <button type="button" id="confirm-approve-btn" class="fluent-btn fluent-btn-primary">Confirm Approval</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REJECT CONFIRMATION MODAL (Fluent Dialog) -->
+  <div id="reject-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="reject-modal-title" hidden>
+    <div class="modal-card">
+      <h3 id="reject-modal-title">Reject Recovery Proposal</h3>
+      <p>Rejecting records your decision on the GitHub Issue and ensures <strong>no recovery is treated as approved</strong> (<code>FR-013</code> / <code>AC-023</code>).</p>
+      <div id="reject-error" class="compose-error" role="alert" hidden></div>
+      <label for="reject-reason" class="sim-label">Reason for Rejection *</label>
+      <textarea id="reject-reason" class="fluent-textarea" rows="3" required placeholder="Explain why this proposal is rejected or what evidence is missing..."></textarea>
+      <div class="modal-actions">
+        <button type="button" id="cancel-reject-btn" class="fluent-btn fluent-btn-secondary">Cancel</button>
+        <button type="button" id="confirm-reject-btn" class="fluent-btn fluent-btn-danger">Confirm Rejection</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
