@@ -8,7 +8,7 @@
   "phaseSkillsLoaded": ["prd-author#create"],
   "gates": {
     "build": "not-passed: open questions on guardrails, metrics and data handling",
-    "validate": "BLOCKED by PRD_QUALITY_REPORT_V1 (overall FAIL, 2026-11-23): GOAL-001 has no measurable KPI; no goal passes SMART",
+    "validate": "BLOCKED on v0.2.0 (re-review 2026-11-23, overall FAIL): one RISK remains, GOAL-001 baseline and target Unknown",
     "finalize": "not-started"
   },
   "sessionContext": ".copilot-tracking/research/2026-11-23/sre-bot-managed-service-session-context.md",
@@ -43,10 +43,13 @@
     "D6": "Option A: payload-only diagnosis, engineer runs recovery",
     "D7": "MVP shown locally; positioning against Azure SRE Agent deferred beyond the MVP (user, 2026-11-23)"
   },
-  "openQuestions": ["OQ-001", "OQ-002", "OQ-005", "OQ-006", "OQ-007", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013", "OQ-014", "OQ-015", "OQ-016"],
+  "openQuestions": ["OQ-001", "OQ-002", "OQ-005", "OQ-006", "OQ-007", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-014", "OQ-015", "OQ-016", "OQ-017"],
   "resolvedQuestions": ["OQ-003", "OQ-004"],
   "deferredQuestions": ["OQ-008", "OQ-013"],
-  "identifierCounts": { "GOAL": 3, "FR": 10, "AC": 13, "NFR": 6, "CON": 8, "DD": 8, "PD": 2, "FC": 7 },
+  "identifierCounts": { "GOAL": 3, "FR": 14, "AC": 25, "NFR": 10, "CON": 8, "DD": 7, "FC": 7 },
+  "version": "0.2.0",
+  "revision": "0.2.0 applies v0.1.0 quality review findings that needed no new facts; v0.1.0 report kept as sre-bot-managed-service-prd.quality-review.md",
+  "traceability": { "frToAcPct": 100.0, "frToGoalPct": 100.0 },
   "traceability": { "frToAcPct": 100.0, "frToGoalPct": 100.0 },
   "nextActions": [
     "Human review of the PRD draft",
@@ -56,14 +59,16 @@
     "Review the BRD, then dispatch the PRD Quality Reviewer at Validate"
   ],
   "qualityReview": {
-    "mode": "automated, read-only PRD Quality Reviewer",
-    "reviewedAt": "2026-11-23T13:10:00+08:00",
-    "reportId": "PRD-2026-Q4-001-quality-20260523T050340Z",
-    "reportPath": ".copilot-tracking/prd-sessions/sre-bot-managed-service-prd.quality-review.md",
+    "mode": "automated, read-only PRD Quality Reviewer, re-review of v0.2.0",
+    "reviewedAt": "2026-11-23T13:45:00+08:00",
+    "reportId": "PRD-2026-Q4-001-quality-20261123T053431Z",
+    "reportPath": ".copilot-tracking/prd-sessions/sre-bot-managed-service-prd.quality-review-v0.2.0.md",
+    "baselineReportPath": ".copilot-tracking/prd-sessions/sre-bot-managed-service-prd.quality-review.md",
     "overallStatus": "FAIL",
     "gateDecisions": { "validate_exit": "BLOCKED", "finalize_exit": "NOT_EVALUATED" },
-    "summaryCounts": { "RISK": 1, "CAUTION": 22, "COVERED": 7, "NOT_APPLICABLE": 1 },
-    "topFindings": ["req-qual-001 GOAL-001 KPI unmeasurable (OQ-002)", "req-qual-005 no privacy NFR despite incident content on records (OQ-011)"],
+    "summaryCounts": { "RISK": 1, "CAUTION": 12, "COVERED": 9, "NOT_APPLICABLE": 0 },
+    "delta": "16 of 23 prior findings resolved; 8 unchanged or narrowed; 5 new, LOW or MEDIUM",
+    "blocker": "req-qual-001 GOAL-001 Unknown baseline and target (OQ-001, OQ-002, OQ-017)",
     "note": "Automated review does not replace human review; humanReview.completed stays false"
   },
   "qualityChecks": ["facts-separated-from-assumptions", "no-invented-metrics", "fr-to-ac-coverage-100", "fr-to-goal-coverage-100"],

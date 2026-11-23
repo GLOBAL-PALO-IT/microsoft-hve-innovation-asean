@@ -8,7 +8,7 @@
   "phaseSkillsLoaded": ["brd-author#discover", "brd-author#define"],
   "gates": {
     "discover": "not-passed: sponsor, buyer, approver and sign-off ownership not explicit",
-    "define": "BLOCKED by BRD_QUALITY_REPORT_V1 (overall FAIL, 2026-11-23): BG-001 baseline, target and owner Unknown; guardrails only Proposed",
+    "define": "BLOCKED on v0.2.0 (re-review 2026-11-23, overall FAIL): one RISK remains, BG-001 baseline, target, timeframe and owner Unknown",
     "govern": "not-started"
   },
   "sessionContext": ".copilot-tracking/research/2026-11-23/sre-bot-managed-service-session-context.md",
@@ -40,10 +40,13 @@
     "D6": "Option A: payload-only diagnosis, engineer runs recovery",
     "D7": "MVP shown locally; positioning against Azure SRE Agent deferred beyond the MVP (user, 2026-11-23)"
   },
-  "openQuestions": ["OQ-001", "OQ-002", "OQ-005", "OQ-006", "OQ-007", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-013", "OQ-014"],
+  "openQuestions": ["OQ-001", "OQ-002", "OQ-005", "OQ-006", "OQ-007", "OQ-009", "OQ-010", "OQ-011", "OQ-012", "OQ-014", "OQ-015", "OQ-016"],
   "resolvedQuestions": ["OQ-003", "OQ-004"],
   "deferredQuestions": ["OQ-008", "OQ-013"],
-  "identifierCounts": { "BG": 3, "FR": 7, "AC": 7, "NFR": 2, "CON": 7, "BR": 5, "DD": 7, "PD": 2 },
+  "identifierCounts": { "BG": 3, "FR": 10, "AC": 17, "NFR": 6, "CON": 7, "BR": 3, "DD": 9 },
+  "version": "0.2.0",
+  "revision": "0.2.0 applies v0.1.0 quality review findings that needed no new facts; v0.1.0 report kept as sre-bot-managed-service-brd.quality-review.md",
+  "traceability": { "frToAcPct": 100.0, "frToBgPct": 100.0 },
   "traceability": { "frToAcPct": 100.0, "frToBgPct": 100.0 },
   "brdToPrdHandoff": null,
   "nextActions": [
@@ -54,14 +57,16 @@
     "Dispatch the BRD Quality Reviewer at the Define gate"
   ],
   "qualityReview": {
-    "mode": "automated, read-only BRD Quality Reviewer",
-    "reviewedAt": "2026-11-23T13:10:00+08:00",
-    "reportId": "BRD-2026-Q4-001-quality-20261123T050340Z",
-    "reportPath": ".copilot-tracking/brd-sessions/sre-bot-managed-service-brd.quality-review.md",
+    "mode": "automated, read-only BRD Quality Reviewer, re-review of v0.2.0",
+    "reviewedAt": "2026-11-23T13:45:00+08:00",
+    "reportId": "BRD-2026-Q4-001-quality-20261123T053431Z",
+    "reportPath": ".copilot-tracking/brd-sessions/sre-bot-managed-service-brd.quality-review-v0.2.0.md",
+    "baselineReportPath": ".copilot-tracking/brd-sessions/sre-bot-managed-service-brd.quality-review.md",
     "overallStatus": "FAIL",
     "gateDecisions": { "define_exit": "BLOCKED", "govern_exit": "NOT_EVALUATED" },
-    "summaryCounts": { "RISK": 1, "CAUTION": 16, "COVERED": 5, "NOT_APPLICABLE": 1 },
-    "topFindings": ["req-qual-001 BG-001 baseline, target, timeframe, owner Unknown (OQ-002)", "req-qual-006 guardrails only Proposed (PD-001)"],
+    "summaryCounts": { "RISK": 1, "CAUTION": 13, "COVERED": 14, "NOT_APPLICABLE": 0 },
+    "delta": "9 of 17 prior findings resolved; 8 unchanged or narrowed; 6 new, all LOW",
+    "blocker": "req-qual-001 BG-001 Unknown measure, baseline, target, timeframe, owner (OQ-001, OQ-002, OQ-015)",
     "note": "Automated review does not replace human review; humanReview.completed stays false"
   },
   "qualityChecks": ["facts-separated-from-assumptions", "no-invented-metrics", "fr-to-ac-coverage-100", "fr-to-bg-coverage-100"],
